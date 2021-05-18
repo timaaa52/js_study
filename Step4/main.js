@@ -13,20 +13,8 @@
 
 'use strict';
 
-let numberOfFilms;
-
-function start() {
-    numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
-
-    while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
-        numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
-    }
-}
-
-start();
-
 const personalMovieDB = {
-    count: numberOfFilms,
+    count: 0,
     movies: {},
     actors: {},
     genres: [],
@@ -79,6 +67,14 @@ const personalMovieDB = {
             personalMovieDB.private = false;
         } else {
             personalMovieDB.private = true;
+        }
+    },
+    start: function() {
+        let numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
+        personalMovieDB.count = numberOfFilms;
+
+        while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
+            numberOfFilms = prompt('Сколько фильмов вы уже посмотрели?', '');
         }
     }
 
