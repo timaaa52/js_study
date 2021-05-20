@@ -17,40 +17,85 @@ P.S. Здесь есть несколько вариантов решения з
 
 'use strict';
 
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против...",
-        "Зомби лэнд"
-    ]
-};
+document.addEventListener('DOMContentLoaded', () => {
+    const movieDB = {
+        movies: [
+            "Логан",
+            "Лига справедливости",
+            "Ла-ла лэнд",
+            "Одержимость",
+            "Скотт Пилигрим против...",
+            "Зомби лэнд"
+        ]
+    };
 
 
-const promAdv = document.querySelectorAll('.promo__adv img'),
-    promoGenre = document.querySelector('.promo__genre'),
-    promoBg = document.querySelector('.promo__bg'),
-    promoInterItems = document.querySelector('.promo__interactive-list');
+    const promAdv = document.querySelectorAll('.promo__adv img'),
+        promoGenre = document.querySelector('.promo__genre'),
+        promoBg = document.querySelector('.promo__bg'),
+        promoInterItems = document.querySelector('.promo__interactive-list'),
+        delFilmItem = document.querySelector('.promo__interactive-list delete'),
+        formAdd = document.querySelector('.add'),
+        addingInp = formAdd.querySelector('.adding__input'),
+        addCheck = formAdd.querySelector('[type="checkbox"]');
+
+    formAdd.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let newFilm = addingInp.value;
+        const checked = addCheck.checked;
+
+        if (newFilm) {
+            if (newFilm.length > 21) {
+                newFilm = `${newFilm.substring(0,22)}...`;
+            }
+            movieDB.movies.push(newFilm);
+            sortArr(movieDB.movies);
+            createFilmList(movieDB.movies, promoInterItems);
+        }
+
+        if (checked) {
+            console.log('Добавляем любимый фильм');
+        }
+
+        console.log(movieDB);
+        e.target.reset();
+    });
+
+    delFilmItem.addEventListener('click', () => {
+
+    });
+
+    const removeAdv = (arr) => {
+        arr.forEach((item) => {
+            item.remove();
+        });
+    };
+
+    removeAdv(promAdv);
+
+    const makeChanges = () => {
+        promoGenre.textContent = 'драма';
+        promoBg.style.background = 'url(../img/bg.jpg) center center / cover no-repeat';
+    };
+
+    // makeChanges();
 
 
-promAdv.forEach(item => {
-    item.remove();
-});
+    function createFilmList(films, element) {
 
-promoGenre.textContent = 'драма';
+        element.innerHTML = '';
+        films.forEach((item, i) => {
+            element.innerHTML += `
+            <li class="promo__interactive-item">${i+1}. ${item}
+                <div class="delete"></div>
+            </li>
+        `;
+        });
+    }
 
-promoBg.style.background = 'url(../img/bg.jpg) center center / cover no-repeat';
+    createFilmList(movieDB.movies, promoInterItems);
 
-promoInterItems.innerHTML = '';
-
-movieDB.movies.sort();
-
-movieDB.movies.forEach((item, i) => {
-    promoInterItems.innerHTML += `
-		<li class="promo__interactive-item">${i+1}. ${item}
-			<div class="delete"></div>
-		</li>
-	`;
+    const sortArr = (arr) => {
+        arr.sort();
+    };
 });
