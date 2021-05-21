@@ -66,15 +66,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    removeAdv(promAdv);
-
     const makeChanges = () => {
         promoGenre.textContent = 'драма';
         promoBg.style.background = 'url(img/bg.jpg) center center / cover no-repeat';
     };
 
-    makeChanges();
-
+    const sortArr = (arr) => {
+        arr.sort();
+    };
 
     function createFilmList(films, element) {
 
@@ -98,8 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     createFilmList(movieDB.movies, promoInterItems);
+    removeAdv(promAdv);
+    makeChanges();
 
-    const sortArr = (arr) => {
-        arr.sort();
-    };
 });
