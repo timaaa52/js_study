@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
         promoGenre = document.querySelector('.promo__genre'),
         promoBg = document.querySelector('.promo__bg'),
         promoInterItems = document.querySelector('.promo__interactive-list'),
-        delFilmItem = document.querySelector('.promo__interactive-list delete'),
         formAdd = document.querySelector('.add'),
         addingInp = formAdd.querySelector('.adding__input'),
         addCheck = formAdd.querySelector('[type="checkbox"]');
@@ -61,10 +60,6 @@ document.addEventListener('DOMContentLoaded', () => {
         e.target.reset();
     });
 
-    delFilmItem.addEventListener('click', () => {
-
-    });
-
     const removeAdv = (arr) => {
         arr.forEach((item) => {
             item.remove();
@@ -75,10 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const makeChanges = () => {
         promoGenre.textContent = 'драма';
-        promoBg.style.background = 'url(../img/bg.jpg) center center / cover no-repeat';
+        promoBg.style.background = 'url(img/bg.jpg) center center / cover no-repeat';
     };
 
-    // makeChanges();
+    makeChanges();
 
 
     function createFilmList(films, element) {
@@ -90,6 +85,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="delete"></div>
             </li>
         `;
+        });
+
+        document.querySelectorAll('.delete').forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.remove();
+                movieDB.movies.splice(i, 1);
+                sortArr(movieDB.movies);
+                createFilmList(films, element);
+            });
         });
     }
 
