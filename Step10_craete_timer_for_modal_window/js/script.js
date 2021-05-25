@@ -130,6 +130,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const timerId = setTimeout(modalStart, 3000);
 
+
+    // Open modal by scroll
+
+
     function openModalByScroll() {
         if (window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight - 0.5) {
             modalStart();
